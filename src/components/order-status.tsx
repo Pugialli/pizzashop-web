@@ -1,3 +1,5 @@
+import { cn } from '@/lib/utils'
+
 export type OrderStatus =
   | 'pending'
   | 'canceled'
@@ -9,35 +11,34 @@ interface OrderStatusProps {
   status: OrderStatus
 }
 
-const orderStatusMap: Record<OrderStatus, string> = {
-  pending: 'Pendente',
-  canceled: 'Cancelado',
-  delivered: 'Entregue',
-  delivering: 'Em entrega',
-  processing: 'Em preparo',
+type OrderStatusInfo = {
+  value: string
+  color: string
+}
+
+export const orderStatusMap: Record<OrderStatus, OrderStatusInfo> = {
+  pending: { value: 'Pendente', color: 'bg-slate-500' },
+  canceled: { value: 'Cancelado', color: 'bg-rose-500' },
+  processing: { value: 'Em preparo', color: 'bg-amber-500' },
+  delivering: { value: 'Em rota', color: 'bg-sky-500' },
+  delivered: { value: 'Entregue', color: 'bg-green-500' },
 }
 
 export function OrderStatus({ status }: OrderStatusProps) {
   return (
     <div className="flex items-center gap-2">
-      {status === 'pending' && (
-        <span className="h-2 w-2 rounded-full bg-slate-400" />
+      {status && (
+        <>
+          <span
+            role="status"
+            aria-label={orderStatusMap[status].value}
+            className={cn('h-2 w-2 rounded-full', orderStatusMap[status].color)}
+          />
+          <span className="font-medium text-muted-foreground">
+            {orderStatusMap[status].value}
+          </span>
+        </>
       )}
-
-      {status === 'canceled' && (
-        <span className="h-2 w-2 rounded-full bg-rose-500" />
-      )}
-
-      {status === 'delivered' && (
-        <span className="h-2 w-2 rounded-full bg-emerald-500" />
-      )}
-
-      {['processing', 'delivering'].includes(status) && (
-        <span className="h-2 w-2 rounded-full bg-amber-500" />
-      )}
-      <span className="font-medium text-muted-foreground">
-        {orderStatusMap[status]}
-      </span>
     </div>
   )
 }
