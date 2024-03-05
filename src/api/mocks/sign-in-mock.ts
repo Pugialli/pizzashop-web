@@ -7,7 +7,7 @@ export const signInMock = http.post<never, SignInBody>(
   async ({ request }) => {
     const { email } = await request.json()
 
-    if (email === 'fulano@exemplo.com') {
+    if (email === 'fulano@exemplo.com.br') {
       return new HttpResponse(null, {
         status: 200,
         headers: { 'Set-Cookie': 'auth=sample-jwt' },
