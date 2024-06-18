@@ -1,6 +1,8 @@
 # iFood (React)
 Dashboard para gestão do estabelecimento e controle de pedidos estilo iFood.
 
+O back-end desta aplicação foi desenvolvido em bun e por esse motivo é necessário um segundo projeto contendo a api para rodá-lo em sua máquina.
+
 ## Ferramentas
 * React
 * React Router DOM
